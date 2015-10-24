@@ -118,24 +118,51 @@
             width: 33%;
         }
     </style>
+    <link href="~/Styles/Compass/app.css" rel="stylesheet" />
 </head>
 <body>
     <div id="viewbox">
-
-        <video autoplay id="background-video"></video>
         <div id="sphere-box"></div>
         <div id="heads-up-display">
             <div id="hud-top-left"><span style="color:red;">Top Left</span></div>
             <div id="hud-top-center">
-                <span style="color:red;">
-                    <canvas id="compassCanvas" style="width:100%; height:400px; border:1px solid #d3d3d3;"></canvas>
-                </span>
+                <div class="compass" style="width: 100%; height: 100%;">
+
+                    <div id="rose" class="compass__rose" style="width: 100%; height: auto;">
+
+                        <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                            <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
+                            <polyline points="63,9  67,9  65,13" fill="white" />
+                            <polyline points="121,63  121,67  119,65" fill="white" />
+                            <polyline points="63,121  67,121  65,119" fill="white" />
+                            <polyline points="9,63  9,67  11,65" fill="white" />
+
+                            <text x="65" y="4.2" font-size="5" text-anchor="middle" fill="white">N</text>
+                            <text x="127" y="67" font-size="5" text-anchor="middle" fill="white">E</text>
+                            <text x="65" y="129" font-size="5" text-anchor="middle" fill="white">S</text>
+                            <text x="2.8" y="67" font-size="5" text-anchor="middle" fill="white">W</text>
+
+                        </svg>
+
+                    </div>
+
+                    <svg class="compass__pointer" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                        <polyline points="60,60  70,60  65,15" fill="#b60000" />
+                        <polyline points="60,70  70,70  65,115" fill="white" />
+                        <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
+
+                    </svg>
+
+                </div>
             </div>
             <div id="hud-top-right"><span style="color:red;">Top Right</span></div>
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
             <div id="hud-bottom-left"><span style="color:red;">Bottom Left<button onclick="fakecompass()">Load fake compass</button></span></div>
             <div id="hud-bottom-center"><span style="color:red;">Bottom Center</span></div>
             <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span></div>
+            <div id="x" style="display: none;"></div>
         </div>
     </div>
     <script>
@@ -356,6 +383,6 @@
 
 
     </script>
-
+    <script src="~/Scripts/Compass/app.js"></script>
 </body>
 </html>
