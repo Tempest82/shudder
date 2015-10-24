@@ -129,10 +129,15 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Source\Car.png" />
+    <Content Include="Content\Images\Source\Person_icon_BLACK-01.svg.png" />
+    <Content Include="Content\Images\Source\r2d2-512.png" />
+    <Content Include="Content\Images\Source\uav-512.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AppScripts\hud-test.js" />
     <Content Include="Scripts\AppScripts\hud-system.js" />
     <Content Include="Scripts\AppScripts\kmltojson.js" />
     <Content Include="Scripts\AppScripts\projection-system.js" />
@@ -166,6 +171,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\HudTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
