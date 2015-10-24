@@ -26,5 +26,11 @@ namespace ShudderApp.Controllers
 
             return View();
         }
+        public ActionResult HudTest()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
