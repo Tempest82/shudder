@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShudderApp", "ShudderApp\ShudderApp.csproj", "{230FC964-1DD1-4424-AE73-EFB8F61A09B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShudderApp.Tests", "ShudderApp.Tests\ShudderApp.Tests.csproj", "{BB58CCA3-1DE6-4473-99BD-C9D59AE64069}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{230FC964-1DD1-4424-AE73-EFB8F61A09B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230FC964-1DD1-4424-AE73-EFB8F61A09B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230FC964-1DD1-4424-AE73-EFB8F61A09B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230FC964-1DD1-4424-AE73-EFB8F61A09B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB58CCA3-1DE6-4473-99BD-C9D59AE64069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB58CCA3-1DE6-4473-99BD-C9D59AE64069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB58CCA3-1DE6-4473-99BD-C9D59AE64069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB58CCA3-1DE6-4473-99BD-C9D59AE64069}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
