@@ -92,7 +92,7 @@ header {
 }
 
 div.status div {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 .compass {
