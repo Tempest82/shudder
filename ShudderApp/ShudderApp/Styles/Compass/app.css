@@ -91,7 +91,9 @@ header {
     height: auto;
 }
 
-
+div.status div {
+    background-color: transparent !important;
+}
 
 .compass {
   position: relative;
