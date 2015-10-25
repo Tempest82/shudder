@@ -381,15 +381,17 @@
             // Implement some fallback controls here...
         });
 
-        $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
-        if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
-            var imgsize = hud.determineSize(60);
-            var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
-            document.getElementById('movethis').style.height = imgsize + '%';
-            document.getElementById('movethis').style.width = imgsize + '%';
-            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
-            document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
-        };
+
+       ////Simulated Bot
+       // $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
+       // if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
+       //     var imgsize = hud.determineSize(60);
+       //     var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
+       //     document.getElementById('movethis').style.height = imgsize + '%';
+       //     document.getElementById('movethis').style.width = imgsize + '%';
+       //     document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
+       //     document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
+       // };
 
         //set positions
 
