@@ -8,6 +8,9 @@
     @Scripts.Render("~/bundles/jquery")
     <title>Quick Test</title>
     <style>
+        body {
+            background-color:rgba(0,0,0,.2)
+        }
         #viewbox {
             overflow: hidden;
             width: 100%;
@@ -64,7 +67,7 @@
                 height: 20%;
             }
 
-        #hud-top-left {
+        div#hud-top-left {
             position: absolute;
             top: 0px;
             left: 0px;
@@ -78,7 +81,7 @@
             background-color: transparent;
         }
 
-        #hudCoordInfo, #hudOrientInfo, #targetinfo {
+        div#hudCoordInfo, div#hudOrientInfo, div#targetinfo {
             text-shadow: 0em 0em 0.1em #8F7;
             background-color: transparent;
             position:relative;
@@ -117,7 +120,7 @@
                 background-color: transparent;
             }
 
-        #hud-bottom-left {
+        div#hud-bottom-left {
             position: absolute;
             height: 20%;
             bottom: 0px;
@@ -158,7 +161,6 @@
             <div id="hud-top-left">
                 <div id="hudCoordInfo"></div>
                 <div id="hudOrientInfo"></div>
-                <span style="color:red;">Top Left</span>
                 <button onclick="getNewPositions()">Get New Positions</button>
             </div>
             <div id="hud-top-center">
