@@ -147,7 +147,11 @@
         <div id="sphere-box"></div>
         <div id="sphere-box2"></div>
         <div id="heads-up-display">
-            <div id="hud-top-left"><span style="color:red;">Top Left</span><button onclick="getNewPositions()">Get New Positions</button></div>
+            <div id="hud-top-left">
+                <div id="hudCoordInfo"></div>
+                <span style="color:red;">Top Left</span>
+                <button onclick="getNewPositions()">Get New Positions</button>
+            </div>
             <div id="hud-top-center">
 
                 <div class="compass" style="height: 100%">
@@ -266,8 +270,12 @@
                 <div id="map"></div>
             </div>
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
-            <div id="hud-bottom-left"><span style="color:red;">Bottom Left<button onclick="fakecompass()">Load fake compass</button></span></div>
-            <div id="hud-bottom-center"><span style="color:red;">Bottom Center</span></div>
+            <div id="hud-bottom-left">
+                <div id="targetinfo"></div>
+            </div>
+            <div id="hud-bottom-center">
+                <span style="color:red;">Bottom Center</span>
+            </div>
             <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span><span id="fulltilt"></span><button onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get New Positions</button></div>
             <div id="x" style="display: none;"></div>
         </div>
@@ -276,7 +284,9 @@
     <script src="~/Scripts/AppScripts/hud-system.js"></script>
     <script src="~/Scripts/AppScripts/projection-system.js"></script>
     <script>
-
+        hud.latitude = 27.96128173377289;
+        hud.longitude = -82.46397972106933;
+        hud.altitude = 30;
         //window.addEventListener("resize", hud.setViewBoxSize('sphere-box2'));
 
         //Alpha 0-180
@@ -417,6 +427,7 @@
         //unitType: positionMessage.unit,
         //    timestamp: Date.now()
         //window.targets[]
+        //positionData.GetLatestData();
 
         function getNewPositions() {
             positionData.GetLatestData();
@@ -444,7 +455,10 @@
             //end sim override
 
             hud.updatePosition(position);
-
+            hud.latitude = 27.96128173377289;
+            hud.longitude = -82.46397972106933;
+            hud.altitude = 30;
+            $('#hudInfo').innerHTML = 'Lat: ' + hud.latitude + '<br />' + 'Long: ' + hud.longitude;
         }
         function showError(error) {
             switch (error.code) {
