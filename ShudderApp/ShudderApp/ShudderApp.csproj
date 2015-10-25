@@ -161,6 +161,7 @@
     <Content Include="Scripts\Position\targetDataProcessor.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Video\video.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\Compass\app.css" />
     <Content Include="Web.config" />
