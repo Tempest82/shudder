@@ -3,10 +3,10 @@
 (function (hud, $, undefined) {
 
     hud.compassAngle = null;
-    hud.groundAngle = 0;
+    hud.groundAngle = 30;
     hud.latitude = null;
     hud.longitude = null;
-    hud.elevation = null;
+    hud.elevation = 30;
     hud.speed = null;
     hud.timestamp = null;
     hud.updatePosition = function (position) {
