@@ -404,16 +404,16 @@
         });
 
 
-        ////Simulated Bot
-        // $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
-        // if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
-        //     var imgsize = hud.determineSize(60);
-        //     var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
-        //     document.getElementById('movethis').style.height = imgsize + '%';
-        //     document.getElementById('movethis').style.width = imgsize + '%';
-        //     document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
-        //     document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
-        // };
+       ////Simulated Bot
+       // $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
+       // if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
+       //     var imgsize = hud.determineSize(60);
+       //     var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
+       //     document.getElementById('movethis').style.height = imgsize + '%';
+       //     document.getElementById('movethis').style.width = imgsize + '%';
+       //     document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
+       //     document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
+       // };
 
         //set positions
 
@@ -457,7 +457,7 @@
     <script src="~/Scripts/Position/messageProcessor.js"></script>
     <script>
 
-
+        
         function updatePositionLocal(position) {
             console.log(' sim override coordinates: 27.96128173377289,-82.46397972106933,30');
             //simulation override
@@ -507,8 +507,8 @@
             }
             $('#targetinfo').html(targetText);
         }
-
-
+        
+        
     </script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
     <script src="~/Scripts/Minimap/leaflet.awesome-markers.js"></script>
@@ -519,7 +519,7 @@
         // create the tile layer with correct attribution
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, { minZoom: 17, maxZoom: 17, attribution: osmAttrib });
+        var osm = new L.TileLayer(osmUrl, { maxZoom: 17, attribution: osmAttrib });
         var markerlayer1;
         var markerlayer2;
         var markerLayer;
@@ -541,8 +541,8 @@
             //var currentLong = position.coords.longitude;// = -82.46397972106933;
             //var currentLat = position.coords.latitude;// = 27.96128173377289;
 
-            var currentLong = -82.46397972106933;
-            var currentLat = 27.96128173377289;
+            var currentLong = hud.longitude;
+            var currentLat = hud.latitude;
 
 
             map.setView(new L.LatLng(currentLat, currentLong), 17);
