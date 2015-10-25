@@ -9,8 +9,8 @@
                   || (targetCompassAngle >= (hud.compassAngle + 360 - hud.halfDegreesVisible) && targetCompassAngle <= (hud.compassAngle + 360 + hud.halfDegreesVisible))
                 )
             && (
-                (targetGroundAngle >= (hud.groundAngle - hud.halfDegreesVisible) && targetCompassAngle <= (hud.groundAngle + hud.halfDegreesVisible))
-                  || (targetGroundAngle >= (hud.groundAngle + 360 - hud.halfDegreesVisible) && targetCompassAngle <= (hud.groundAngle + 360 + hud.halfDegreesVisible))
+                (targetGroundAngle >= (hud.groundAngle - hud.halfDegreesVisible) && targetGroundAngle <= (hud.groundAngle + hud.halfDegreesVisible))
+                  || (targetGroundAngle >= (hud.groundAngle + 360 - hud.halfDegreesVisible) && targetGroundAngle <= (hud.groundAngle + 360 + hud.halfDegreesVisible))
                 )
 
             ) {
