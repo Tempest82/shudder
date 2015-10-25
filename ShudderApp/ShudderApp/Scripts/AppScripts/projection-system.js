@@ -66,9 +66,10 @@
     hud.drawTargets = function () {
         //read array
         //console.log(window.targets.length);
+        //delete all targets indiscriminatly, update this to avoid some of the lag
+        $("img[id^='target']").remove();
         for (var i = 0; i < window.targets.length; i++) {
-            //delete all targets indiscriminatly, update this to avoid some of the lag
-            $("img[id^='target']").remove();
+
             var theTarget = window.targets[i];
             if (hud.determineVisible(theTarget.position.bearing, theTarget.position.elevationAngle)) {
                 var imgsize = hud.determineSize(theTarget.position.distance);
