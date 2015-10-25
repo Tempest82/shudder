@@ -512,7 +512,7 @@
             for (i in window.targetdata.targets) {
                 var value = window.targetdata.targets[i];
 
-                lastPosition = value.positions.pop();
+                lastPosition = value.positions[value.positions.length - 1];
 
                 if (typeof (lastPosition) === "undefined") {
                     break;
