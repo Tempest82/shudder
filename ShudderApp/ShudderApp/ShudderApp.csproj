@@ -156,6 +156,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Minimap\leaflet.awesome-markers.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Position\messageProcessor.js" />
     <Content Include="Scripts\Position\targetDataProcessor.js" />
@@ -164,6 +165,14 @@
     <Content Include="Scripts\Video\video.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\Compass\app.css" />
+    <Content Include="Styles\Minimap\images\markers-matte%402x.png" />
+    <Content Include="Styles\Minimap\images\markers-matte.png" />
+    <Content Include="Styles\Minimap\images\markers-plain.png" />
+    <Content Include="Styles\Minimap\images\markers-shadow%402x.png" />
+    <Content Include="Styles\Minimap\images\markers-shadow.png" />
+    <Content Include="Styles\Minimap\images\markers-soft%402x.png" />
+    <Content Include="Styles\Minimap\images\markers-soft.png" />
+    <Content Include="Styles\Minimap\leaflet.awesome-markers.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

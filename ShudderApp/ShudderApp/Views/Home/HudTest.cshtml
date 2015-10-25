@@ -15,7 +15,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            background-color:transparent;
+            background-color: transparent;
         }
 
         #background-video {
@@ -31,17 +31,18 @@
         #sphere-box {
             z-index: 2000;
             overflow: hidden;
-            background-color:transparent;
+            background-color: transparent;
             height: 18000px;
             width: 18000px; /* 50px per degree at 30 ft */
         }
-                #sphere-box2 {
+
+        #sphere-box2 {
             z-index: 2000;
             overflow: hidden;
-            background-color:transparent;
-            position:absolute;
-            top:0px;
-            left:0px;
+            background-color: transparent;
+            position: absolute;
+            top: 0px;
+            left: 0px;
             height: 100%;
             width: 100%; /* 50px per degree at 30 ft */
         }
@@ -54,10 +55,10 @@
             height: 99.1%;
             overflow: hidden;
             position: absolute;
-            background-color:transparent;
+            background-color: transparent;
         }
 
-            #heads-up-display div {
+            #heads-up-display > div {
                 background-color: rgba(255,0,0,.3);
                 width: 33%;
                 height: 20%;
@@ -73,7 +74,6 @@
             position: absolute;
             top: 0px;
             left: 33.3%;
-            background-color: transparent;
         }
 
         #hud-top-right {
@@ -131,8 +131,14 @@
             left: 66.6%;
             width: 33%;
         }
+
+        #map {
+            height: 150px;
+        }
     </style>
     <link href="~/Styles/Compass/app.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+    <link href="~/Styles/Minimap/leaflet.awesome-markers.css" rel="stylesheet" />
 </head>
 <body>
     <div id="viewbox">
@@ -167,7 +173,7 @@
                 <div class='status' style="background-color: transparent;">
                     <div id='debug-orientation-default'></div>
                     <div id='debug-orientation'></div>
-                    <div class='position row' style="background-color: transparent;">
+                    <div class='position row' style="background-color: rgba(255,0,0,.3);">
                         <div class='column-33'>
                             <div class='label'>HDG</div>
                             <div id='position-hng'>n/a</div>
@@ -244,7 +250,7 @@
                                     For more information, bugs or comments please visit <a href='https://github.com/lamplightdev/compass'>the repo on github</a>.
                                 </p>
                             </div>
-                            <div id="popup-inner-noorientation" class="popup__inner popup__inner--hide">
+                            d<div id="popup-inner-noorientation" class="popup__inner popup__inner--hide">
                                 <p>
                                     Unfortunately this browser doesn't support orientation so will not show your correct heading.
                                 </p>
@@ -254,7 +260,10 @@
                     </div>
                 </div>
             </div>
-            <div id="hud-top-right"><span style="color:red;">Top Right</span></div>
+            <div id="hud-top-right">
+                <span style="color:red;">Top Right</span>
+                <div id="map"></div>
+            </div>
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
             <div id="hud-bottom-left"><span style="color:red;">Bottom Left<button onclick="fakecompass()">Load fake compass</button></span></div>
             <div id="hud-bottom-center"><span style="color:red;">Bottom Center</span></div>
@@ -425,7 +434,7 @@
                 var compassHeading = 360 - currentOrientation.alpha;
                 // Do something with `compassHeading` here...
                 hud.compassAngle = compassHeading;
-                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: '+hud.compassAngle;
+                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: ' + hud.compassAngle;
             });
         }).catch(function (errorMessage) { // Device Orientation Events are not supported
             console.log(errorMessage);
@@ -438,10 +447,10 @@
             var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
             document.getElementById('movethis').style.height = imgsize + '%';
             document.getElementById('movethis').style.width = imgsize + '%';
-            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2))+'px';
+            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
             document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
         };
-        
+
         function getNewPositions() {
             positionData.GetLatestData();
         }
@@ -458,6 +467,83 @@
     <script src="~/Scripts/Position/messageProcessor.js"></script>
     <script>
         positionData.LoadTargetData();
+    </script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script src="~/Scripts/Minimap/leaflet.awesome-markers.js"></script>
+    <script>
+
+
+        var map = L.map('map');
+        // create the tile layer with correct attribution
+        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+        var osm = new L.TileLayer(osmUrl, { minZoom: 17, maxZoom: 17, attribution: osmAttrib });
+        var markerlayer1;
+        var markerlayer2;
+        var markerLayer;
+
+
+        map.addLayer(osm);
+        function locationUpdate(position) {
+            if (typeof (markerLayer) !== "undefined") {
+                map.removeLayer(markerLayer);
+            }
+            if (typeof (markerlayer1) !== "undefined") {
+                map.removeLayer(markerlayer1);
+            }
+            if (typeof (markerlayer2) !== "undefined") {
+                map.removeLayer(markerlayer2);
+            }
+            
+            //debug
+            //var currentLong = position.coords.longitude;// = -82.46397972106933;
+            //var currentLat = position.coords.latitude;// = 27.96128173377289;
+
+            var currentLong = -82.46397972106933;
+            var currentLat = 27.96128173377289;
+
+
+            map.setView(new L.LatLng(currentLat, currentLong), 17);
+
+            var redMarker = L.AwesomeMarkers.icon({
+                markerColor: 'red'
+            });
+
+            for (i in window.targetdata.targets) {
+                var value = window.targetdata.targets[i];
+
+                lastPosition = value.positions.pop();
+
+                if (typeof (lastPosition) === "undefined") {
+                    break;
+                }
+
+                if (0 == i) {
+                    markerlayer1 = new L.Marker([lastPosition.latitude, lastPosition.longitude], { icon: redMarker });
+                }
+                else {
+                    markerlayer2 = new L.Marker([lastPosition.latitude, lastPosition.longitude], { icon: redMarker });
+                }
+
+            }
+
+            markerLayer = new L.Marker([currentLat, currentLong]);
+            map.addLayer(markerLayer);
+            map.addLayer(markerlayer1);
+            map.addLayer(markerlayer2);
+
+        }
+
+        function locationUpdateFail(error) {
+            console.log("location fail: ", error);
+        }
+
+        navigator.geolocation.watchPosition(locationUpdate, locationUpdateFail, {
+            enableHighAccuracy: false,
+            maximumAge: 30000,
+            timeout: 27000
+        });
+
     </script>
 </body>
 </html>
