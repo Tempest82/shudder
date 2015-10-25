@@ -15,7 +15,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            background-color:transparent;
+            background-color: transparent;
         }
 
         #background-video {
@@ -31,17 +31,18 @@
         #sphere-box {
             z-index: 2000;
             overflow: hidden;
-            background-color:transparent;
+            background-color: transparent;
             height: 18000px;
             width: 18000px; /* 50px per degree at 30 ft */
         }
-                #sphere-box2 {
+
+        #sphere-box2 {
             z-index: 2000;
             overflow: hidden;
-            background-color:transparent;
-            position:absolute;
-            top:0px;
-            left:0px;
+            background-color: transparent;
+            position: absolute;
+            top: 0px;
+            left: 0px;
             height: 100%;
             width: 100%; /* 50px per degree at 30 ft */
         }
@@ -54,7 +55,7 @@
             height: 99.1%;
             overflow: hidden;
             position: absolute;
-            background-color:transparent;
+            background-color: transparent;
         }
 
             #heads-up-display div {
@@ -140,7 +141,7 @@
         <div id="sphere-box"></div>
         <div id="sphere-box2"></div>
         <div id="heads-up-display">
-            <div id="hud-top-left"><span style="color:red;">Top Left</span></div>
+            <div id="hud-top-left"><span style="color:red;">Top Left</span><button onclick="getNewPositions()" >Get New Positions</button></div>
             <div id="hud-top-center">
 
                 <div class="compass" style="height: 100%">
@@ -265,6 +266,9 @@
     <script src="~/Scripts/fulltilt.js"></script>
     <script src="~/Scripts/AppScripts/hud-system.js"></script>
     <script src="~/Scripts/AppScripts/projection-system.js"></script>
+    <script src="~/Scripts/Compass/app.js"></script>
+    <script src="~/Scripts/Position/targetDataProcessor.js"></script>
+    <script src="~/Scripts/Position/messageProcessor.js"></script>
     <script>
         function setViewBoxSize() {
             var w = window.innerWidth
@@ -324,12 +328,8 @@
         //        ctx.fillRect(90, 340, 180, event.gamma);
         //    }
         //}
-        //if (window.DeviceOrientationEvent) {
-        //    // Our browser supports DeviceOrientation
-        //    window.addEventListener("deviceorientation", deviceOrientationListener);
-        //} else {
-        //    alert("Sorry, your browser doesn't support Device Orientation, Compass will not work.");
-        //}
+
+        
 
         //navigator.getUserMedia(hdConstraints, successCallback, errorCallback);
         //function compassHeading(alpha, beta, gamma) {
@@ -383,13 +383,19 @@
         //    // Do something with 'heading'...
         //    document.getElementById("hud-top-left").innerHTML = 'Compass: ' +heading;
         //}, false);
-        //if (navigator.geolocation) {
-        //    navigator.geolocation.getCurrentPosition(showPosition, showError);
-        //} else {
-        //    x.innerHTML = "Geolocation is not supported by this browser.";
-        //}
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
 
         function showPosition(position) {
+            //simulation override
+            position.coords.latitude = 27.961527;
+            position.coords.longitude = -82.464414;
+            position.coords.altitude=  30;
+            //end sim override
+
             hud.updatePosition(position);
             x.innerHTML = "Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude;
@@ -425,7 +431,7 @@
                 var compassHeading = 360 - currentOrientation.alpha;
                 // Do something with `compassHeading` here...
                 hud.compassAngle = compassHeading;
-                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: '+hud.compassAngle;
+                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: ' + hud.compassAngle;
             });
         }).catch(function (errorMessage) { // Device Orientation Events are not supported
             console.log(errorMessage);
@@ -438,10 +444,49 @@
             var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
             document.getElementById('movethis').style.height = imgsize + '%';
             document.getElementById('movethis').style.width = imgsize + '%';
-            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2))+'px';
+            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
             document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
         };
-        
+
+        //set positions
+
+       
+
+        //determine if image is visible
+        //create image;
+        //resize image;
+        //place image;
+        //repeat every time we move.
+
+        positionData.GetLatestData();
+        function deviceOrientationListener(event) {
+            console.log('draw targets');
+            positionData.LoadTargetData();
+            hud.updatePosition()
+            hud.drawTargets();
+        }
+        if (window.DeviceOrientationEvent) {
+            // Our browser supports DeviceOrientation
+            window.addEventListener("deviceorientation", deviceOrientationListener);
+        } else {
+            alert("Sorry, your browser doesn't support Device Orientation, Compass will not work.");
+        }
+        //id: unitId,
+        //    position: {
+        //    distance: positionData.GroundDistance,
+        //    bearing: positionData.Bearing,
+        //    latitude: position.latitude,
+        //    longitude: position.longitude,
+        //    elevation: position.elevation,
+        //    elevationAngle: positionData.VerticalBearing,
+        //    obstructions: positionData.Obstructions,
+        //    totalObstructions: positionData.TotalObstructions
+        //    },
+        //unitType: positionMessage.unit,
+        //    timestamp: Date.now()
+        //window.targets[]
+        positionData.GetLatestData();
+
         function getNewPositions() {
             positionData.GetLatestData();
         }
@@ -453,9 +498,7 @@
         hud.startVideo();
 
     </script>
-    <script src="~/Scripts/Compass/app.js"></script>
-    <script src="~/Scripts/Position/targetDataProcessor.js"></script>
-    <script src="~/Scripts/Position/messageProcessor.js"></script>
+
     <script>
         positionData.LoadTargetData();
     </script>
