@@ -17,29 +17,9 @@
             mandatory: {
                 maxWidth: 640,
                 maxHeight: 360
-            },
-            optional: [{
-                sourceId: document.querySelector('select#videoSource').value
-            }]
-        }
-    };
-
-
-    document.querySelector('select#videoSource').onchange = hud.startVideo;
-
-    function gotSources(sourceInfos) {
-        for (var i = 0; i !== sourceInfos.length; ++i) {
-            var sourceInfo = sourceInfos[i];
-            var option = document.createElement('option');
-            option.value = sourceInfo.id;
-            if (sourceInfo.kind === 'video') {
-                option.text = sourceInfo.label || 'camera ' + (document.querySelector('select#videoSource').length + 1);
-                document.querySelector('select#videoSource').appendChild(option);
-            } else {
-                console.log('Some other kind of source: ', sourceInfo);
             }
         }
-    }
+    };
 
     hud.hasGetUserMedia = function () {
         return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -56,16 +36,7 @@
             alert('getUserMedia() is not supported in your browser. No background video will be displayed.');
         }
     };
-
     hud.startVideo = function () {
-
-        if (typeof MediaStreamTrack === 'undefined' ||
-    typeof MediaStreamTrack.getSources === 'undefined') {
-            alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
-        } else {
-            MediaStreamTrack.getSources(gotSources);
-        }
-
         navigator.getUserMedia(hud.hdConstraints, function (localMediaStream) {
             var video = document.querySelector('video');
             video.src = window.URL.createObjectURL(localMediaStream);
