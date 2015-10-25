@@ -128,6 +128,10 @@
 
     bearing *= 180 / pi;
 
+    if (bearing < 0) {
+        bearing = 360 + bearing;
+    }
+
     var positionalData = function () { };
 
     positionalData.GroundDistance = d;
