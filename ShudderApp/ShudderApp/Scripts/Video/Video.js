@@ -46,7 +46,7 @@
             video.onloadedmetadata = function (e) {
                 // Ready to go. Do some stuff.
             };
-        }, errorCallback);
+        }, hud.errorCallback);
     };
 
 

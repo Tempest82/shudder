@@ -36,7 +36,7 @@
             width: 18000px; /* 50px per degree at 30 ft */
         }
 
-                #sphere-box2 {
+        #sphere-box2 {
             z-index: 2000;
             overflow: hidden;
             background-color: transparent;
@@ -147,7 +147,7 @@
         <div id="sphere-box"></div>
         <div id="sphere-box2"></div>
         <div id="heads-up-display">
-            <div id="hud-top-left"><span style="color:red;">Top Left</span><button onclick="getNewPositions()" >Get New Positions</button></div>
+            <div id="hud-top-left"><span style="color:red;">Top Left</span><button onclick="getNewPositions()">Get New Positions</button></div>
             <div id="hud-top-center">
 
                 <div class="compass" style="height: 100%">
@@ -268,7 +268,7 @@
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
             <div id="hud-bottom-left"><span style="color:red;">Bottom Left<button onclick="fakecompass()">Load fake compass</button></span></div>
             <div id="hud-bottom-center"><span style="color:red;">Bottom Center</span></div>
-            <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span><button onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get New Positions</button></div>
+            <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span><span id="fulltilt"></span><button onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get New Positions</button></div>
             <div id="x" style="display: none;"></div>
         </div>
     </div>
@@ -276,25 +276,11 @@
     <script src="~/Scripts/AppScripts/hud-system.js"></script>
     <script src="~/Scripts/AppScripts/projection-system.js"></script>
     <script>
-        function setViewBoxSize() {
-            var w = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
 
-            var h = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-
-            document.getElementById('viewbox').style.height = (h - (h * .01));
-            document.getElementById('viewbox').style.width = (w - (w * .01));
-        }
-        //window.addEventListener("resize", setViewBoxSize);
-        //setViewBoxSize();
+        //window.addEventListener("resize", hud.setViewBoxSize('sphere-box2'));
 
         //Alpha 0-180
-        var errorCallback = function (e) {
-            console.log('Reeeejected!', e);
-        };
+
 
 
         //var oa = null;
@@ -308,30 +294,7 @@
         //        oa = event.alpha;
         //        ob = event.beta;
         //        og = event.gamma;
-
         //        console.log(compassHeading(oa, ob, og));
-        //        var c = document.getElementById("compassCanvas");
-        //        var ctx = c.getContext("2d");
-
-        //        ctx.clearRect(0, 0, c.width, c.height);
-        //        ctx.fillStyle = "#FF7777";
-        //        ctx.font = "14px Verdana";
-        //        ctx.fillText("Alpha: " + Math.round(event.alpha), 10, 20);
-        //        ctx.beginPath();
-        //        ctx.moveTo(180, 75);
-        //        ctx.lineTo(210, 75);
-        //        ctx.arc(180, 75, 60, 0, event.alpha * Math.PI / 180);
-        //        ctx.fill();
-
-        //        ctx.fillStyle = "#FF6600";
-        //        ctx.fillText("Beta: " + Math.round(event.beta), 10, 140);
-        //        ctx.beginPath();
-        //        ctx.fillRect(180, 150, event.beta, 90);
-
-        //        ctx.fillStyle = "#FF0000";
-        //        ctx.fillText("Gamma: " + Math.round(event.gamma), 10, 270);
-        //        ctx.beginPath();
-        //        ctx.fillRect(90, 340, 180, event.gamma);
         //    }
         //}
         //if (window.DeviceOrientationEvent) {
@@ -341,9 +304,9 @@
         //    alert("Sorry, your browser doesn't support Device Orientation, Compass will not work.");
         //}
 
-        
 
-        //navigator.getUserMedia(hdConstraints, successCallback, errorCallback);
+
+        //navigator.getUserMedia(hdConstraints, successCallback, hud.errorCallback);
         //function compassHeading(alpha, beta, gamma) {
 
         //    // Convert degrees to radians
@@ -395,40 +358,8 @@
         //    // Do something with 'heading'...
         //    document.getElementById("hud-top-left").innerHTML = 'Compass: ' +heading;
         //}, false);
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
 
-        function showPosition(position) {
-            //simulation override
-            position.coords.latitude = 27.961527;
-            position.coords.longitude = -82.464414;
-            position.coords.altitude=  30;
-            //end sim override
 
-            hud.updatePosition(position);
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
-
-        }
-        function showError(error) {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    x.innerHTML = "User denied the request for Geolocation."
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    x.innerHTML = "Location information is unavailable."
-                    break;
-                case error.TIMEOUT:
-                    x.innerHTML = "The request to get user location timed out."
-                    break;
-                case error.UNKNOWN_ERROR:
-                    x.innerHTML = "An unknown error occurred."
-                    break;
-            }
-        }
 
         var fulltiltPromise = FULLTILT.getDeviceOrientation({ 'type': 'world' });
 
@@ -443,7 +374,7 @@
                 var compassHeading = 360 - currentOrientation.alpha;
                 // Do something with `compassHeading` here...
                 hud.compassAngle = compassHeading;
-                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: ' + hud.compassAngle;
+                document.getElementById('fulltilt').innerHTML = 'FullTilt: ' + hud.compassAngle;
             });
         }).catch(function (errorMessage) { // Device Orientation Events are not supported
             console.log(errorMessage);
@@ -459,10 +390,10 @@
             document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
             document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
         };
-        
+
         //set positions
 
-       
+
 
         //determine if image is visible
         //create image;
@@ -470,19 +401,6 @@
         //place image;
         //repeat every time we move.
 
-        positionData.GetLatestData();
-        function deviceOrientationListener(event) {
-            console.log('draw targets');
-            positionData.LoadTargetData();
-            hud.updatePosition()
-            hud.drawTargets();
-        }
-        if (window.DeviceOrientationEvent) {
-            // Our browser supports DeviceOrientation
-            window.addEventListener("deviceorientation", deviceOrientationListener);
-        } else {
-            alert("Sorry, your browser doesn't support Device Orientation, Compass will not work.");
-        }
         //id: unitId,
         //    position: {
         //    distance: positionData.GroundDistance,
@@ -514,7 +432,48 @@
     <script src="~/Scripts/Position/targetDataProcessor.js"></script>
     <script src="~/Scripts/Position/messageProcessor.js"></script>
     <script>
+
+        
+        function updatePositionLocal(position) {
+            console.log('begin sim override');
+            //simulation override
+            position.coords.latitude = 27.961527;
+            position.coords.longitude = -82.464414;
+            position.coords.altitude = 30;
+            //end sim override
+            console.log('end sim override');
+            hud.updatePosition(position);
+
+        }
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                default:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
         positionData.LoadTargetData();
+        hud.addPositionListener(updatePositionLocal, showError)
+        hud.addOrientationListener(deviceOrientationListener);
+
+        positionData.GetLatestData();
+
+        function deviceOrientationListener(event) {
+            console.log('draw targets');
+            hud.drawTargets();
+        }
+        
+        
     </script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
     <script src="~/Scripts/Minimap/leaflet.awesome-markers.js"></script>
@@ -542,7 +501,7 @@
             if (typeof (markerlayer2) !== "undefined") {
                 map.removeLayer(markerlayer2);
             }
-            
+
             //debug
             //var currentLong = position.coords.longitude;// = -82.46397972106933;
             //var currentLat = position.coords.latitude;// = 27.96128173377289;
