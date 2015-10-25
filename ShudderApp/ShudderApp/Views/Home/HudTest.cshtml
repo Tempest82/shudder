@@ -433,6 +433,7 @@
                 targetText += 'ID: ' + theTarget.id + ', Distance: ' + theTarget.position.distance + ', Bearing: ' + theTarget.position.bearing + ', Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ', Obst: ' + theTarget.position.totalObstructions + '<br />';
             }
             $('#targetinfo').html(targetText);
+            DrawMap();
         }
 
     </script>
@@ -516,7 +517,11 @@
 
 
         map.addLayer(osm);
-        function locationUpdate(position) {
+        function locationUpdate(position) {            
+            DrawMap();
+        }
+
+        function DrawMap() {
             if (typeof (markerLayer) !== "undefined") {
                 map.removeLayer(markerLayer);
             }
@@ -541,10 +546,10 @@
                 markerColor: 'red'
             });
 
-            for (i in window.targetdata.targets) {
-                var value = window.targetdata.targets[i];
+            for (i in window.targets) {
+                var value = window.targets[i];
 
-                lastPosition = value.positions[value.positions.length - 1];
+                lastPosition = value.position;
 
                 if (typeof (lastPosition) === "undefined") {
                     break;
@@ -563,8 +568,7 @@
             map.addLayer(markerLayer);
             map.addLayer(markerlayer1);
             map.addLayer(markerlayer2);
-
-        }
+}
 
         function locationUpdateFail(error) {
             console.log("location fail: ", error);
