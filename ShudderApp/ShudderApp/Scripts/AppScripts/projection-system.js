@@ -65,7 +65,7 @@
     };
     hud.drawTargets = function () {
         //read array
-        console.log(window.targets.length);
+        //console.log(window.targets.length);
         for (var i = 0; i < window.targets.length; i++) {
             //delete all targets indiscriminatly, update this to avoid some of the lag
             $("img[id^='target']").remove();
@@ -82,10 +82,10 @@
                 document.getElementById(targetName).style.width = imgsize + '%';
                 document.getElementById(targetName).style.top = (position.top - (document.getElementById(targetName).clientHeight / 2)) + 'px';
                 document.getElementById(targetName).style.left = (position.left - (document.getElementById(targetName).clientWidth / 2)) + 'px';
-                console.log('Showing target ' + theTarget.id);
+                //console.log('Showing target ' + theTarget.id);
             }
             else {
-                console.log('not showing target ' + theTarget.id);
+                //console.log('not showing target ' + theTarget.id);
             }
         }
     }

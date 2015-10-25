@@ -437,13 +437,13 @@
 
         
         function updatePositionLocal(position) {
-            console.log('begin sim override');
+            console.log(' sim override coordinates: 27.96128173377289,-82.46397972106933,30');
             //simulation override
-            position.coords.latitude = 27.961527;
-            position.coords.longitude = -82.464414;
+            position.coords.latitude = 27.96128173377289;
+            position.coords.longitude = -82.46397972106933;
             position.coords.altitude = 30;
             //end sim override
-            console.log('end sim override');
+
             hud.updatePosition(position);
 
         }
@@ -471,7 +471,7 @@
         positionData.GetLatestData();
 
         function deviceOrientationListener(event) {
-            console.log('draw targets');
+            //console.log('draw targets');
             hud.drawTargets();
         }
         
