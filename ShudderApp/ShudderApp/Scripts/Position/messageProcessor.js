@@ -113,7 +113,7 @@
     var R = 6371;
     var a = Math.sin(dlat / 2) * Math.sin(dlat / 2) + Math.cos(myPosition.latitude) * Math.cos(lat) * Math.sin(dlong / 2) * Math.sin(dlong / 2)
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; //meters
+    var d = R * c * 1000; //meters
 
     var straightLineDistance = Math.sqrt(Math.pow(d, 2) + Math.pow(height, 2));
 

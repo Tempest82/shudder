@@ -445,6 +445,14 @@
 
         function getNewPositions() {
             positionData.GetLatestData();
+            $('#hudOrientInfo').html('Compass Degree: ' + hud.compassAngle + '<br />');
+            var targetText = '';
+            targetText += 'Targets (' + window.targets.length + '): <br />';
+            for (var i = 0; i < window.targets.length; i++) {
+                var theTarget = window.targets[i];
+                targetText += 'ID: ' + theTarget.id + ', Distance: ' + theTarget.position.distance + ', Bearing: ' + theTarget.position.bearing + ', Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ' <br />';
+            }
+            $('#targetinfo').html(targetText);
         }
 
     </script>
