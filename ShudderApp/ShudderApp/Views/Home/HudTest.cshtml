@@ -258,7 +258,7 @@
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
             <div id="hud-bottom-left"><span style="color:red;">Bottom Left<button onclick="fakecompass()">Load fake compass</button></span></div>
             <div id="hud-bottom-center"><span style="color:red;">Bottom Center</span></div>
-            <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span></div>
+            <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span><button onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get New Positions</button></div>
             <div id="x" style="display: none;"></div>
         </div>
     </div>
@@ -442,6 +442,9 @@
             document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
         };
         
+        function getNewPositions() {
+            positionData.GetLatestData();
+        }
 
     </script>
     <script src="~/Scripts/Video/Video.js"></script>
@@ -451,5 +454,10 @@
 
     </script>
     <script src="~/Scripts/Compass/app.js"></script>
+    <script src="~/Scripts/Position/targetDataProcessor.js"></script>
+    <script src="~/Scripts/Position/messageProcessor.js"></script>
+    <script>
+        positionData.LoadTargetData();
+    </script>
 </body>
 </html>

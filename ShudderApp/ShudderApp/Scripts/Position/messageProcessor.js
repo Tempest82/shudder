@@ -1,12 +1,13 @@
-﻿var myPosition = function () { };
+﻿(function (msgProcessor, $, undefined) {
+    var myPosition = function () { };
 
-function ProcessIncomingMessage(positionMessage) {
+    msgProcessor.ProcessIncomingMessage = function(positionMessage) {
     var unit = positionMessage.unit;
     var network = positionMessage.network;
     var position = positionMessage.absolutePosition;
     var unitId = positionMessage.unitId;
 
-    var positionData = TranslatePosition(position.latitude, position.longitude, position.elevation, position.direction);
+    var positionData = msgProcessor.TranslatePosition(position.latitude, position.longitude, position.elevation, position.direction);
 
     if (typeof (window.targets) === "undefined") {
         window.targets = [];
@@ -29,8 +30,8 @@ function ProcessIncomingMessage(positionMessage) {
     });
 }
 
-function TranslatePosition(lat, long, elevation, direction) {
-    GetCurrentLocation();
+    msgProcessor.TranslatePosition = function(lat, long, elevation, direction) {
+        msgProcessor.GetCurrentLocation();
 
     var sofwerx = {
         "type": "LineString",
@@ -96,7 +97,7 @@ function TranslatePosition(lat, long, elevation, direction) {
         ]
     };
 
-    var intersectionPoints = lineStringsIntersect(sofwerx, position1);
+    var intersectionPoints = msgProcessor.lineStringsIntersect(sofwerx, position1);
 
     var pi = Math.PI;
     lat *= pi / 180;
@@ -139,13 +140,13 @@ function TranslatePosition(lat, long, elevation, direction) {
     return positionalData;
 }
 
-function GetCurrentLocation() {
+    msgProcessor.GetCurrentLocation = function() {
     myPosition.latitude = window.hud.latitude;
     myPosition.longitude = window.hud.longitude;
     myPosition.elevation = window.hud.elevation;
 }
 
-function lineStringsIntersect(l1, l2) {
+    msgProcessor.lineStringsIntersect = function(l1, l2) {
     var intersects = [];
     for (var i = 0; i <= l1.coordinates.length - 2; ++i) {
         for (var j = 0; j <= l2.coordinates.length - 2; ++j) {
@@ -183,3 +184,4 @@ function lineStringsIntersect(l1, l2) {
 
     return intersects;
 }
+}(window.msgProcessor = window.msgProcessor || {}, jQuery));
