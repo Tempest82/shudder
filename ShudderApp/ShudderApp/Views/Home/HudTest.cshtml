@@ -15,6 +15,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
+            background-color:transparent;
         }
 
         #background-video {
@@ -30,8 +31,19 @@
         #sphere-box {
             z-index: 2000;
             overflow: hidden;
+            background-color:transparent;
             height: 18000px;
             width: 18000px; /* 50px per degree at 30 ft */
+        }
+                #sphere-box2 {
+            z-index: 2000;
+            overflow: hidden;
+            background-color:transparent;
+            position:absolute;
+            top:0px;
+            left:0px;
+            height: 100%;
+            width: 100%; /* 50px per degree at 30 ft */
         }
 
         #heads-up-display {
@@ -42,6 +54,7 @@
             height: 99.1%;
             overflow: hidden;
             position: absolute;
+            background-color:transparent;
         }
 
             #heads-up-display div {
@@ -125,6 +138,7 @@
     <div id="viewbox">
         <video autoplay id="background-video"></video>
         <div id="sphere-box"></div>
+        <div id="sphere-box2"></div>
         <div id="heads-up-display">
             <div id="hud-top-left"><span style="color:red;">Top Left</span></div>
             <div id="hud-top-center">
@@ -249,6 +263,8 @@
         </div>
     </div>
     <script src="~/Scripts/fulltilt.js"></script>
+    <script src="~/Scripts/AppScripts/hud-system.js"></script>
+    <script src="~/Scripts/AppScripts/projection-system.js"></script>
     <script>
         function setViewBoxSize() {
             var w = window.innerWidth
@@ -264,26 +280,6 @@
         }
         //window.addEventListener("resize", setViewBoxSize);
         //setViewBoxSize();
-
-        (function (hud, $, undefined) {
-
-            hud.compassAngle = null;
-            hud.groundAngle = 0;
-            hud.latitude = null;
-            hud.longitude = null;
-            hud.elevation = null;
-            hud.speed = null;
-            hud.timestamp = null;
-            hud.updatePosition = function (position) {
-                hud.latitude = position.coords.latitude;
-                hud.longitude = position.coords.longitude;
-                hud.elevation = position.coords.altitude;
-                hud.speed = position.coords.speed;
-                hud.timestamp = position.coords.timestamp;
-                console.log('Lat and long:' + hud.latitude + ',' + hud.longitude);
-            }
-
-        }(window.hud = window.hud || {}, jQuery));
 
         //Alpha 0-180
         var errorCallback = function (e) {
@@ -435,6 +431,17 @@
             console.log(errorMessage);
             // Implement some fallback controls here...
         });
+
+        $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
+        if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
+            var imgsize = hud.determineSize(60);
+            var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
+            document.getElementById('movethis').style.height = imgsize + '%';
+            document.getElementById('movethis').style.width = imgsize + '%';
+            document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2))+'px';
+            document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
+        };
+        
 
     </script>
     <script src="~/Scripts/Video/Video.js"></script>
