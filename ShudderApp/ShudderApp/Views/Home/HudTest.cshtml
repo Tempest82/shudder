@@ -9,7 +9,7 @@
     <title>Quick Test</title>
     <style>
         body {
-            background-color:rgba(0,0,0,.2)
+           
         }
         #viewbox {
             overflow: hidden;
@@ -29,6 +29,7 @@
             top: 0px;
             width: 100%;
             height: 100%;
+             background-color:rgba(0,0,0,.9)
         }
 
         #sphere-box {
@@ -62,7 +63,7 @@
         }
 
             #heads-up-display > div {
-                background-color: rgba(255,0,0,.3);
+                background-color: rgba(255,0,0,0);
                 width: 33%;
                 height: 20%;
             }
@@ -81,7 +82,7 @@
             background-color: transparent;
         }
 
-        div#hudCoordInfo, div#hudOrientInfo, div#targetinfo {
+        div#hudCoordInfo, div#hudOrientInfo, div#targetinfo, .helptext {
             text-shadow: 0em 0em 0.1em #8F7;
             background-color: transparent;
             position:relative;
@@ -161,7 +162,6 @@
             <div id="hud-top-left">
                 <div id="hudCoordInfo"></div>
                 <div id="hudOrientInfo"></div>
-                <button onclick="getNewPositions()">Get New Positions</button>
             </div>
             <div id="hud-top-center">
 
@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div id="hud-top-right">
-                <span style="color:red;">Top Right</span>
+                <span style="color:red;"></span>
                 <div id="map"></div>
             </div>
             <div id="hud-center-center"><div class="crosshair">+</div><span style="color:red;"></span></div>
@@ -285,9 +285,9 @@
                 <div id="targetinfo"></div>
             </div>
             <div id="hud-bottom-center">
-                <span style="color:red;">Bottom Center</span>
+                <span style="color:red;"></span>
             </div>
-            <div id="hud-bottom-right"><span style="color:red;">Bottom Right</span><span id="fulltilt"></span><button onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get New Positions</button></div>
+            <div id="hud-bottom-right"><span id="fulltilt"></span><h4 class="helptext" onclick="getNewPositions()" style="position:absolute; bottom: 0px; right: 0px;">Get Next Positions >></h4></div>
             <div id="x" style="display: none;"></div>
         </div>
     </div>
@@ -384,7 +384,7 @@
         //}, false);
 
 
-
+        //this is a full Tilt implementation
         var fulltiltPromise = FULLTILT.getDeviceOrientation({ 'type': 'world' });
 
         // Wait for Promise result
@@ -398,7 +398,7 @@
                 var compassHeading = 360 - currentOrientation.alpha;
                 // Do something with `compassHeading` here...
                 hud.compassAngle = compassHeading;
-                document.getElementById('fulltilt').innerHTML = 'FullTilt: ' + hud.compassAngle;
+                //document.getElementById('fulltilt').innerHTML = 'FullTilt: ' + hud.compassAngle;
             });
         }).catch(function (errorMessage) { // Device Orientation Events are not supported
             console.log(errorMessage);
