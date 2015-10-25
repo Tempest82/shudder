@@ -21,11 +21,11 @@
     hud.determineSize = function (targetDistance) {
         //reduce size by .05% every meter
         percentAdjust = 100;
-        if (targetDistance < 20)
+        if (targetDistance < 5)
         { percentAdjust = 100 + (2 * targetDistance); }
         else
-        { percentAdjust = 100 - (3 * targetDistance); }
-        if (percentAdjust < 15) { percentAdjust = 15; }
+        { percentAdjust = 100 - (3.5 * targetDistance); }
+        if (percentAdjust < 10) { percentAdjust = 10; }
         return (percentAdjust);
     };
     hud.determineLocation = function (targetCompassAngle, targetGroundAngle) {
