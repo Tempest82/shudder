@@ -9,8 +9,8 @@
                   || (targetCompassAngle >= (hud.compassAngle + 360 - hud.halfDegreesVisible) && targetCompassAngle <= (hud.compassAngle + 360 + hud.halfDegreesVisible))
                 )
             && (
-                (targetGroundAngle >= (hud.groundAngle - hud.halfDegreesVisible) && targetCompassAngle <= (hud.groundAngle + hud.halfDegreesVisible))
-                  || (targetGroundAngle >= (hud.groundAngle + 360 - hud.halfDegreesVisible) && targetCompassAngle <= (hud.groundAngle + 360 + hud.halfDegreesVisible))
+                (targetGroundAngle >= (hud.groundAngle - hud.halfDegreesVisible) && targetGroundAngle <= (hud.groundAngle + hud.halfDegreesVisible))
+                  || (targetGroundAngle >= (hud.groundAngle + 360 - hud.halfDegreesVisible) && targetGroundAngle <= (hud.groundAngle + 360 + hud.halfDegreesVisible))
                 )
 
             ) {
@@ -66,9 +66,10 @@
     hud.drawTargets = function () {
         //read array
         //console.log(window.targets.length);
+        //delete all targets indiscriminatly, update this to avoid some of the lag
+        $("img[id^='target']").remove();
         for (var i = 0; i < window.targets.length; i++) {
-            //delete all targets indiscriminatly, update this to avoid some of the lag
-            $("img[id^='target']").remove();
+
             var theTarget = window.targets[i];
             if (hud.determineVisible(theTarget.position.bearing, theTarget.position.elevationAngle)) {
                 var imgsize = hud.determineSize(theTarget.position.distance);
@@ -76,7 +77,7 @@
                 var targetName = "target" + theTarget.id;
                 if ($("#" + targetName).length == 0) {
                     //it doesn't exist
-                    $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="' + targetName + '" />');
+                    $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
                 }
                 document.getElementById(targetName).style.height = imgsize + '%';
                 document.getElementById(targetName).style.width = imgsize + '%';
