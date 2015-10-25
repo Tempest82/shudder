@@ -248,7 +248,7 @@
             <div id="x" style="display: none;"></div>
         </div>
     </div>
-
+    <script src="~/Scripts/fulltilt.js"></script>
     <script>
         function setViewBoxSize() {
             var w = window.innerWidth
@@ -267,6 +267,8 @@
 
         (function (hud, $, undefined) {
 
+            hud.compassAngle = null;
+            hud.groundAngle = 0;
             hud.latitude = null;
             hud.longitude = null;
             hud.elevation = null;
@@ -287,7 +289,7 @@
         var errorCallback = function (e) {
             console.log('Reeeejected!', e);
         };
-        
+
 
         //var oa = null;
         //var og = null;
@@ -332,7 +334,7 @@
         //} else {
         //    alert("Sorry, your browser doesn't support Device Orientation, Compass will not work.");
         //}
-        
+
         //navigator.getUserMedia(hdConstraints, successCallback, errorCallback);
         //function compassHeading(alpha, beta, gamma) {
 
@@ -414,11 +416,25 @@
             }
         }
 
+        var fulltiltPromise = FULLTILT.getDeviceOrientation({ 'type': 'world' });
 
-
-
-
-
+        // Wait for Promise result
+        fulltiltPromise.then(function (deviceOrientation) { // Device Orientation Events are supported
+            // Register a callback to run every time a new
+            // deviceorientation event is fired by the browser.
+            deviceOrientation.listen(function () {
+                // Get the current *screen-adjusted* device orientation angles
+                var currentOrientation = deviceOrientation.getScreenAdjustedEuler();
+                // Calculate the current compass heading that the user is 'looking at' (in degrees)
+                var compassHeading = 360 - currentOrientation.alpha;
+                // Do something with `compassHeading` here...
+                hud.compassAngle = compassHeading;
+                document.getElementById('hud-bottom-right').innerHTML = 'FullTilt: '+hud.compassAngle;
+            });
+        }).catch(function (errorMessage) { // Device Orientation Events are not supported
+            console.log(errorMessage);
+            // Implement some fallback controls here...
+        });
 
     </script>
     <script src="~/Scripts/Video/Video.js"></script>
