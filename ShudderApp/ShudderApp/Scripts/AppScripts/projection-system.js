@@ -78,10 +78,10 @@
                 if ($("#" + targetName).length == 0) {
                     //it doesn't exist
                     if (theTarget.unitType == "Drone") {
-                        $('#sphere-box2').append('<img src="/Content/Images/Source/uav-512.png" style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
+                        $('#sphere-box2').append('<img src="/Content/Images/Source/uav-512.png" class="highlight"  style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
                     }
                     else {
-                        $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
+                        $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" class="highlight" style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
                     }
                 }
                 document.getElementById(targetName).style.height = imgsize + '%';
