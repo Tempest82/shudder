@@ -34,22 +34,22 @@
                    "positions": [{
                        "latitude": 27.961524,
                        "longitude": -82.463124,
-                       "elevation": 125,
+                       "elevation": 250,
                        "bearing": 180
                    }, {
                        "latitude": 27.961152,
                        "longitude": -82.463135,
-                       "elevation": 125,
+                       "elevation": 250,
                        "bearing": 90
                    }, {
                        "latitude": 27.960799,
                        "longitude": -82.463146,
-                       "elevation": 125,
+                       "elevation": 250,
                        "bearing": 0
                    }, {
                        "latitude": 27.960593,
                        "longitude": -82.463406,
-                       "elevation": 125,
+                       "elevation": 250,
                        "bearing": 290
                    }]
                }

@@ -1,7 +1,7 @@
-@font-face {
+/*@font-face {
   font-family: Muli;
   src: url("../fonts/Muli-Light.ttf");
-}
+}*/
 
 
 
@@ -283,9 +283,8 @@ html.nightmode {
     fill: rgba(127, 127, 127, 0.5);
   }
 
-img[src*="r2d2-512.png"] {
-    -webkit-filter: drop-shadow(12px 12px 25px rgba(136,255,119,0.5));
-    filter: url(#drop-shadow);
+img.highlight {
+    filter: drop-shadow(12px 12px 25px rgba(136,255,119,0.5));
+   
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#8F7')";
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#8F7')";
 }
