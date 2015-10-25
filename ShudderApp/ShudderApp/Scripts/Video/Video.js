@@ -19,16 +19,13 @@
                 maxHeight: 360
             },
             optional: [{
-                sourceId: videoSource
+                sourceId: document.querySelector('select#videoSource').value
             }]
         }
     };
 
-    var videoElement = document.querySelector('video');
-    var videoSelect = document.querySelector('select#videoSource');
-    var videoSource = videoSelect.value;
 
-    videoSelect.onchange = hud.startVideo;
+    document.querySelector('select#videoSource').onchange = hud.startVideo;
 
     function gotSources(sourceInfos) {
         for (var i = 0; i !== sourceInfos.length; ++i) {
@@ -36,8 +33,8 @@
             var option = document.createElement('option');
             option.value = sourceInfo.id;
             if (sourceInfo.kind === 'video') {
-                option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-                videoSelect.appendChild(option);
+                option.text = sourceInfo.label || 'camera ' + (document.querySelector('select#videoSource').length + 1);
+                document.querySelector('select#videoSource').appendChild(option);
             } else {
                 console.log('Some other kind of source: ', sourceInfo);
             }
