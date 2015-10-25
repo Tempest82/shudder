@@ -9,8 +9,8 @@
     <title>Quick Test</title>
     <style>
         body {
-           
         }
+
         #viewbox {
             overflow: hidden;
             width: 100%;
@@ -29,7 +29,7 @@
             top: 0px;
             width: 100%;
             height: 100%;
-             background-color:rgba(0,0,0,.9)
+            background-color: rgba(0,0,0,.9);
         }
 
         #sphere-box {
@@ -72,7 +72,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            background-color:transparent;
+            background-color: transparent;
         }
 
         div#hud-top-center {
@@ -94,7 +94,7 @@
         }
 
         div#hudCoordInfo, div#hudOrientInfo, .helptext {
-            position:relative;
+            position: relative;
         }
 
         #hud-top-right {
@@ -135,7 +135,7 @@
             height: 20%;
             bottom: 0px;
             left: 0px;
-            background-color:transparent;
+            background-color: transparent;
         }
 
         #hud-bottom-center {
@@ -395,16 +395,16 @@
         });
 
 
-       ////Simulated Bot
-       // $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
-       // if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
-       //     var imgsize = hud.determineSize(60);
-       //     var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
-       //     document.getElementById('movethis').style.height = imgsize + '%';
-       //     document.getElementById('movethis').style.width = imgsize + '%';
-       //     document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
-       //     document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
-       // };
+        ////Simulated Bot
+        // $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" style="position:absolute;" id="movethis" />');
+        // if (hud.determineVisible(hud.compassAngle, hud.groundAngle)) {
+        //     var imgsize = hud.determineSize(60);
+        //     var position = hud.determineLocation(hud.compassAngle, hud.groundAngle);
+        //     document.getElementById('movethis').style.height = imgsize + '%';
+        //     document.getElementById('movethis').style.width = imgsize + '%';
+        //     document.getElementById('movethis').style.top = (position.top - (document.getElementById('movethis').clientHeight / 2)) + 'px';
+        //     document.getElementById('movethis').style.left = (position.left - (document.getElementById('movethis').clientWidth / 2)) + 'px';
+        // };
 
         //set positions
 
@@ -458,7 +458,7 @@
     <script src="~/Scripts/Position/messageProcessor.js"></script>
     <script>
 
-        
+
         function updatePositionLocal(position) {
             console.log(' sim override coordinates: 27.96128173377289,-82.46397972106933,30');
             //simulation override
@@ -498,7 +498,7 @@
 
         function deviceOrientationListener(event) {
             //console.log('draw targets');
-            hud.drawTargets(); 
+            hud.drawTargets();
             $('#hudOrientInfo').html('Compass Degree: ' + hud.compassAngle + '<br />');
             var targetText = '';
             targetText += 'Targets (' + window.targets.length + '): <br />';
@@ -508,10 +508,15 @@
             }
             $('#targetinfo').html(targetText);
 
-            $('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + 'deg)');
+            var compassAngle = hud.compassAngle;
+            if (compassAngle > 180) {
+                compassAngle = 360 - compassAngle;
+            }
+
+            $('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + compassAngle + 'deg)');
         }
-        
-        
+
+
     </script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
     <script src="~/Scripts/Minimap/leaflet.awesome-markers.js"></script>
@@ -529,7 +534,7 @@
 
 
         map.addLayer(osm);
-        function locationUpdate(position) {            
+        function locationUpdate(position) {
             DrawMap();
         }
 
@@ -580,7 +585,7 @@
             map.addLayer(markerLayer);
             map.addLayer(markerlayer1);
             map.addLayer(markerlayer2);
-}
+        }
 
         function locationUpdateFail(error) {
             console.log("location fail: ", error);
