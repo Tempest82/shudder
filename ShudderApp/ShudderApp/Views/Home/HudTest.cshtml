@@ -176,22 +176,22 @@
 
                 <div class="compass" style="height: 60%">
                     <div id="rose" class="compass__rose" style="background-color: transparent;">
-                        <svg class="compass__pointer" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <polyline points="60,60  70,60  65,15" fill="#b60000" />
-                            <polyline points="60,70  70,70  65,115" fill="white" />
-                            <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
+                        <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
+                            <polyline points="63,9  67,9  65,13" fill="white" />
+                            <polyline points="121,63  121,67  119,65" fill="white" />
+                            <polyline points="63,121  67,121  65,119" fill="white" />
+                            <polyline points="9,63  9,67  11,65" fill="white" />
+                            <text x="65" y="4.2" font-size="5" text-anchor="middle" fill="white">N</text>
+                            <text x="127" y="67" font-size="5" text-anchor="middle" fill="white">E</text>
+                            <text x="65" y="129" font-size="5" text-anchor="middle" fill="white">S</text>
+                            <text x="2.8" y="67" font-size="5" text-anchor="middle" fill="white">W</text>
                         </svg>
                     </div>
-                    <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
-                        <polyline points="63,9  67,9  65,13" fill="white" />
-                        <polyline points="121,63  121,67  119,65" fill="white" />
-                        <polyline points="63,121  67,121  65,119" fill="white" />
-                        <polyline points="9,63  9,67  11,65" fill="white" />
-                        <text x="65" y="4.2" font-size="5" text-anchor="middle" fill="white">N</text>
-                        <text x="127" y="67" font-size="5" text-anchor="middle" fill="white">E</text>
-                        <text x="65" y="129" font-size="5" text-anchor="middle" fill="white">S</text>
-                        <text x="2.8" y="67" font-size="5" text-anchor="middle" fill="white">W</text>
+                    <svg class="compass__pointer" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="60,60  70,60  65,15" fill="#b60000" />
+                        @*<polyline points="60,70  70,70  65,115" fill="white" />*@
+                        <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
                     </svg>
                 </div>
 
@@ -443,6 +443,7 @@
             }
             $('#targetinfo').html(targetText);
             DrawMap();
+            $('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + 'deg)');
         }
 
     </script>
@@ -506,6 +507,8 @@
                 targetText += 'ID: ' + theTarget.id + ', Distance: ' + theTarget.position.distance + ', Bearing: ' + theTarget.position.bearing + ', Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ', Obst: ' + theTarget.position.totalObstructions + '<br />';
             }
             $('#targetinfo').html(targetText);
+
+            $('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + 'deg)');
         }
         
         
