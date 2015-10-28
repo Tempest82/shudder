@@ -16,7 +16,7 @@
             var xOffset = (((hud.compassAngle * compassdegree) + overrunOffset) * -1) + (container.offsetWidth / 2);//(container.offsetWidth / 2)
             var transformAttr = ' translate(' + xOffset + ',0)';
             compass.setAttribute('transform', transformAttr);
-            console.log('transform' + xOffset + ' ' + compassdegree)
+            //console.log('transform' + xOffset + ' ' + compassdegree)
         }
     };
     

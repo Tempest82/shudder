@@ -131,7 +131,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\Source\Car.png" />
     <Content Include="Content\Images\Source\Person_icon_BLACK-01.svg.png" />
+    <Content Include="Content\Images\Source\r2d2-512 - Copy.png" />
     <Content Include="Content\Images\Source\r2d2-512.png" />
+    <Content Include="Content\Images\Source\uav-512 - Copy.png" />
     <Content Include="Content\Images\Source\uav-512.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
