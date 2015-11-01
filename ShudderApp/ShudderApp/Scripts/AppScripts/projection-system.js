@@ -181,5 +181,26 @@
         //Add Target indicators
 
     };
+    hud.drawReticle = function () {
+        //Create radar concentric circle with crosshair
+        var c = document.getElementById("reticle");
+        var ctx = c.getContext("2d");
+
+
+
+        ctx.beginPath();
+        ctx.arc(9, 9, 9, 0, 2 * Math.PI);
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(9, 18);
+        ctx.lineTo(9, 0);
+        ctx.moveTo(0, 9);
+        ctx.lineTo(18, 9);
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+        ctx.closePath();
+    };
 
 }(window.hud = window.hud || {}, jQuery));
