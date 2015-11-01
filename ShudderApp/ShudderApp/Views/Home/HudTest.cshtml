@@ -36,8 +36,11 @@
             z-index: 2000;
             overflow: hidden;
             background-color: transparent;
-            height: 18000px;
-            width: 18000px; /* 50px per degree at 30 ft */
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%; 
         }
 
         #sphere-box2 {
@@ -48,7 +51,7 @@
             top: 0px;
             left: 0px;
             height: 100%;
-            width: 100%; /* 50px per degree at 30 ft */
+            width: 100%;
         }
 
         #heads-up-display {
@@ -82,13 +85,13 @@
             background-color: transparent;
         }
 
-        div#hudCoordInfo, div#hudOrientInfo, div#targetinfo, .helptext {
+        div#hudCoordInfo, div#hudOrientInfo, div#addTargetinfo, .helptext {
             /*text-shadow: 0em 0em 0.1em #8F7;*/
             color:#ff0000;
             background-color: transparent;
         }
 
-        div#targetinfo {
+        div#addTargetinfo {
             position: absolute;
             left: 0;
             bottom: 0;
@@ -176,6 +179,18 @@
         #map {
             height: 150px;
         }
+        canvas#indicators {
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .indicator {
+            position:absolute;
+            opacity: 0.4;
+            color:#ff0000;
+        }
     </style>
     <link href="~/Styles/Compass/app.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
@@ -184,7 +199,7 @@
 <body>
     <div id="viewbox">
         <video autoplay id="background-video"></video>
-        <div id="sphere-box"></div>
+        <div id="sphere-box"><canvas id="indicators"></canvas></div>
         <div id="sphere-box2"></div>
         <div id="heads-up-display">
             <div id="hud-top-left">
@@ -710,7 +725,7 @@
             </div>
             <div id="hud-center-center"><div class="crosshair"><canvas id="reticle" width="18" height="18" ></canvas></div><span style="color:red;"></span></div>
             <div id="hud-bottom-left">
-                <div id="targetinfo"></div>
+                <div id="addTargetinfo"></div>
             </div>
             <div id="hud-bottom-center">
                     <canvas id="radar-view" width="175" height="150" style="position:absolute;top:0;left:50%;margin-left:-100px;display:block;"></canvas>
@@ -881,7 +896,7 @@
                 var theTarget = window.targets[i];
                 targetText += 'ID: ' + theTarget.id + ', Distance: ' + theTarget.position.distance + ', Bearing: ' + theTarget.position.bearing + ', Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ', Obst: ' + theTarget.position.totalObstructions + '<br />';
             }
-            $('#targetinfo').html(targetText);
+            $('#addTargetinfo').html(targetText);
             DrawMap();
             $('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + 'deg)');
         }
@@ -913,7 +928,7 @@
             hud.latitude = 27.96128173377289;
             hud.longitude = -82.46397972106933;
             hud.altitude = 30;
-            $('#hudCoordInfo').html('Lat: ' + hud.latitude + '<br />' + 'Long: ' + hud.longitude);
+            $('#hudCoordInfo').html('Lat: ' + hud.latitude + '<br />' + 'Long: ' + hud.longitude +' <br/>Bearing: '+Math.round(hud.compassAngle)+' degrees' );
         }
         function showError(error) {
             switch (error.code) {
@@ -946,9 +961,9 @@
             targetText += 'Targets (' + window.targets.length + '): <br />';
             for (var i = 0; i < window.targets.length; i++) {
                 var theTarget = window.targets[i];
-                targetText += 'ID: ' + theTarget.id + ', Distance: ' + theTarget.position.distance + ', Bearing: ' + theTarget.position.bearing + ', Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ', Obst: ' + theTarget.position.totalObstructions + '<br />';
+                targetText += 'ID: ' + theTarget.id + ', Distance: ' + Math.round(theTarget.position.distance) + 'm, Bearing: ' + Math.round(theTarget.position.bearing) + ', <br/>&nbsp;&nbsp;&nbsp;&nbsp; Lat/Long :' + theTarget.position.latitude + '/' + theTarget.position.longitude + ', Obst: ' + theTarget.position.totalObstructions + '<br />';
             }
-            $('#targetinfo').html(targetText);
+            $('#addTargetinfo').html(targetText);
             hud.setCompass('inner-compass', 'compass-slider');
             //$('.compass__pointer').css('transform', 'rotate(' + theTarget.position.bearing + 'deg)');
         }

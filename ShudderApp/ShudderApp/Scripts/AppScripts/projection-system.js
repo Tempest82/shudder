@@ -68,7 +68,9 @@
         //console.log(window.targets.length);
         //delete all targets indiscriminatly, update this to avoid some of the lag
         $("img[id^='target']").remove();
+        $("div[id^='target']").remove();
         hud.createRadar();
+        //hud.clearTargetIndicators();
         //prepare for radar update
         var c = document.getElementById("radar-view");
         var ctx = c.getContext("2d");
@@ -90,11 +92,27 @@
                         $('#sphere-box2').append('<img src="/Content/Images/Source/r2d2-512.png" class="highlight" style="position:absolute;opacity: 0.4;" id="' + targetName + '" />');
                     }
                 }
-                document.getElementById(targetName).style.height = imgsize + '%';
-                document.getElementById(targetName).style.width = imgsize + '%';
-                document.getElementById(targetName).style.top = (position.top - (document.getElementById(targetName).clientHeight / 2)) + 'px';
-                document.getElementById(targetName).style.left = (position.left - (document.getElementById(targetName).clientWidth / 2)) + 'px';
+                var targetImage = document.getElementById(targetName);
+                targetImage.style.height = imgsize + '%';
+                targetImage.style.width = imgsize + '%';
+                targetImage.style.top = (position.top - (targetImage.clientHeight / 2)) + 'px';
+                targetImage.style.left = (position.left - (targetImage.clientWidth / 2)) + 'px';
+                // Quick Target Indicator Details
+                $('#sphere-box2').append('<div class="indicator" id="' + targetName + 'indicator" ></div>');
+                var targetDetail = document.getElementById(targetName + 'indicator');
+                targetDetail.innerHTML = Math.round(theTarget.position.distance) + 'm, '
+                    + theTarget.position.totalObstructions + ' obstructions <br/>'
+                + 'Id: ' + theTarget.id + '<br/>'
+                + 'Last Update: ' + Math.round((theTarget.timestamp- Date.now()) / 1000)+'s';
+                targetDetail.style.width = targetImage.style.width;
+                targetDetail.style.top = ((position.top + (targetImage.clientHeight))) + 'px';
+                targetDetail.style.left = (-20 + (position.left - (targetImage.clientWidth) / 2)) + 'px';
                 
+
+                //hud.drawTargetIndicator(targetImage.x, targetImage.y, theTarget.position.distance, theTarget.position.bearing, theTarget.position.totalObstructions);
+
+
+
                 //update radar
                 ctx.beginPath();
                 var radius = 15;
@@ -181,6 +199,39 @@
         //Add Target indicators
 
     };
+    //hud.clearTargetIndicators = function () {
+    //    //Create radar concentric circle with crosshair
+    //    var c = document.getElementById("indicators");
+    //    var ctx = c.getContext("2d");
+    //    //clear canvas
+    //    ctx.clearRect(0, 0, c.width, c.height);
+    //    var w = c.width;
+    //    c.width = 1;
+    //    c.width = w;
+    //    //move the call below into the resize method.
+    //    var w = window.innerWidth
+    //    || document.documentElement.clientWidth
+    //    || document.body.clientWidth;
+
+    //    var h = window.innerHeight
+    //    || document.documentElement.clientHeight
+    //    || document.body.clientHeight;
+    //    c.height = h;
+    //    c.width = w
+    //    //END clear canvas
+    //};
+    //hud.drawTargetIndicator = function (sourceTop, sourceLeft, distance, orientation, obstructions) {
+    //    //Create radar concentric circle with crosshair
+    //    var c = document.getElementById("indicators");
+    //    var ctx = c.getContext("2d");
+    //    //outer circle
+    //    ctx.beginPath();
+    //    ctx.arc(sourceTop-50, sourceLeft + 20, 50, 0, 2 * Math.PI);
+    //    ctx.strokeStyle = "red";
+    //    ctx.stroke();
+    //    ctx.closePath();
+    //};
+
     hud.drawReticle = function () {
         //Create radar concentric circle with crosshair
         var c = document.getElementById("reticle");
