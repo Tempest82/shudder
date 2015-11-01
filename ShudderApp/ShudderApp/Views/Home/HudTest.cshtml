@@ -928,7 +928,7 @@
             hud.latitude = 27.96128173377289;
             hud.longitude = -82.46397972106933;
             hud.altitude = 30;
-            $('#hudCoordInfo').html('Lat: ' + hud.latitude + '<br />' + 'Long: ' + hud.longitude +' <br/>Bearing: '+Math.round(hud.compassAngle)+' degrees' );
+            $('#hudCoordInfo').html('Lat: ' + hud.latitude + '<br />' + 'Long: ' + hud.longitude );
         }
         function showError(error) {
             switch (error.code) {
@@ -956,7 +956,7 @@
         function deviceOrientationListener(event) {
             //console.log('draw targets');
             hud.drawTargets();
-            $('#hudOrientInfo').html('Compass Degree: ' + hud.compassAngle + '<br />');
+            $('#hudOrientInfo').html('Compass Heading: ' + Math.round(hud.compassAngle) + ' degrees <br />');
             var targetText = '';
             targetText += 'Targets (' + window.targets.length + '): <br />';
             for (var i = 0; i < window.targets.length; i++) {
