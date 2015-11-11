@@ -10,7 +10,7 @@ namespace ShudderApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToActionPermanent("HudTest");
         }
 
         public ActionResult About()
